@@ -1,0 +1,10 @@
+.imgforSliderR{
+    height: 500px;
+}
+.nameHeadingR{
+    /* color: black; */
+    text-align: left;
+}
+.underlineTag:hover{
+    text-decoration: underline;
+}
