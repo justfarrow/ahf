@@ -39,6 +39,9 @@ const PaymentPage = () => {
 
   const handlePaymentButton=()=>{
     navigate('/CheckoutPage');
+    setTimeout(()=>{
+      navigate('/');
+    },1500)
   }
   return (
     <div id={styles.paymentPageContainer}>
