@@ -110,7 +110,7 @@ const Navbar = () => {
               )} */}
 
 {
-            userData.isAuth === true ? <>{userData.data}</> : <><NavLink to="/login" >
+            userData.isAuth === true ? <>{userData.data}</> : <><NavLink to="/login"style={{paddingRight:"20px"}}>
             Log in
           </NavLink>
           <NavLink to="/signup">
