@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '../Styles/SingleProductMidSection.module.css';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const SingleProductSection = ({ id }) => {
+const SingleProductSection = () => {
+  const { id } = useParams();
+  
   const navigate = useNavigate();
   const [singlProductData, setSingleProductData] = useState({});
 
@@ -11,14 +15,24 @@ const SingleProductSection = ({ id }) => {
     state => state.productPageReducer.audioProjects
   );
 
+  // useEffect(() => {
+  //   if (id) {
+  //     const updatedProductData = productData.find(
+  //       elem => elem.id === Number(id)
+  //     );
+  //     updatedProductData && setSingleProductData(updatedProductData);
+  //   }
+  // }, [productData, id]);
+
   useEffect(() => {
     if (id) {
-      const updatedProductData = productData.find(
-        elem => elem.id === Number(id)
-      );
-      updatedProductData && setSingleProductData(updatedProductData);
+      axios.get(`https://indiegogo-server.herokuapp.com/audioData/${id}`)
+        .then((res) => {
+          console.log(res.data)
+          setSingleProductData(res.data)
+        })
     }
-  }, [productData, id]);
+  }, [id]);
 
   const image1 =
     'https://c2.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_fill,w_762,g_center,q_auto:best,dpr_1.5,f_auto,h_506/mpxk3ni2rijd5sffammm';
@@ -61,10 +75,10 @@ const SingleProductSection = ({ id }) => {
       <div className={styles.rightMidSectionImages}>
         <p className={styles.optionTitle}>Select an option</p>
         <div className={styles.rightSideDiv}>
-          <img src={image1} alt="extra pic  " />
+          <img src={singlProductData.cover} alt="extra pic  " />
           <p>{`${singlProductData.title} x 1`}</p>
           <p>
-            <b style={{ fontSize: '21px', marginRight: '1%' }}>${299*1} USD</b>
+            <b style={{ fontSize: '21px', marginRight: '1%' }}>${singlProductData.backers} USD</b>
             <span
               style={{
                 fontSize: '16px',
@@ -94,10 +108,10 @@ const SingleProductSection = ({ id }) => {
           </Link>
         </div>
         <div className={styles.rightSideDiv}>
-          <img src={image2} alt="extra pic  " />
+          <img src={singlProductData.cover} alt="extra pic  " />
           <p>{`${singlProductData.title} x 2`}</p>
           <p>
-            <b style={{ fontSize: '21px', marginRight: '1%' }}>${299*2} USD</b>
+            <b style={{ fontSize: '21px', marginRight: '1%' }}>${singlProductData.backers*2} USD</b>
             <span
               style={{
                 fontSize: '16px',
@@ -125,10 +139,10 @@ const SingleProductSection = ({ id }) => {
           </Link>
         </div>
         <div className={styles.rightSideDiv}>
-          <img src={image3} alt="extra pic  " />
+          <img src={singlProductData.cover} alt="extra pic  " />
           <p>{`${singlProductData.title} x 3`}</p>
           <p>
-            <b style={{ fontSize: '21px', marginRight: '1%' }}>${299*3} USD</b>
+            <b style={{ fontSize: '21px', marginRight: '1%' }}>${singlProductData.backers*3} USD</b>
             <span
               style={{
                 fontSize: '16px',

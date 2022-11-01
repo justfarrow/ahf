@@ -35,14 +35,18 @@ const Singup = () => {
       description: 'A Transformation in education!',
     };
 
+   if(formData.name && formData.email && formData.password && formData.username && formData.mobile){
     return axios
-      .post(`https://masai-api-mocker.herokuapp.com/auth/register`, formData)
-      .then(res => {
-        console.log(res);
-        alert('Registrations successfully!');
-        navigate('/Login');
-      })
-      .catch(error => console.log(error));
+    .post(`https://masai-api-mocker.herokuapp.com/auth/register`, formData)
+    .then(res => {
+      console.log(res);
+      alert('Registrations successfully!');
+      navigate('/Login');
+    })
+    .catch(error => console.log(error));
+   }else {
+    alert("Please Fill All Details")
+   }
   };
   return (
     <div>
